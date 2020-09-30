@@ -4,77 +4,61 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Linkverwaltung
-    </title>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <title>Linkverwaltung</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='style.css'> -->
 </head>
 
 <body>
-    <h1>Hallo hier sieht man alle Links:</h1>
-    <ul>
-        <li>
-            <a href="wwww.google.de">google</a>
-        </li>
-    </ul>
+    <div class="d-flex p-2" id="">
 
-    <br>
-    <h2>Neue Links hinzufügen</h2>
-    <input id="eingabe" type="text">
-    <button id="kopierButton">Kopieren</button>
-    <p id="textAusgabe">---</p>
 
-    <!-- Script am ende vom Body, damit der rest schon geladen ist. -->
+        <ul class="list-group">
+            <h1>Hallo hier sieht man alle Links:</h1><br>
+            <li class="list-group-item">
+                <a href="http://wwww.google.de" target="_blank">google</a>
+            </li>
+            <li class="list-group-item">
+                <a href="http://www.kohnlehome.de" target="_blank">kohnlehome</a>
+            </li>
+            <li class="list-group-item">
+                <a href="http://www.youtube.de" target="_blank">Youtube</a>
+            </li>
+            <li class="list-group-item">
+                <a href='{{ ausgabe }}' target="_blank">Irgendwas</a><br>
+            </li>
+        </ul>
+    </div>
+
+
+    <div id="app2">
+        <br>
+        <h2>Link Eingabe</h2>
+        <input v-model='eingabe' type="text">
+        <button @click='kopieren'>Kopieren</button>
+        <p>{{ ausgabe }}</p>
+        <p>{{ eingabe }}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        // JavaScript-Objekt für HTML-Element
-        const berta = document.querySelector('#berta');
-        const drueckbutten = document.querySelector('#drueckbutten');
-        const zahlenausgabe = document.querySelector('#zahlenausgabe');
-        const reset = document.querySelector('#reset');
-
-        //Ein-Ausgabe
-        const eingabe = document.querySelector('#eingabe');
-        const kopierButton = document.querySelector('#kopierButton');
-        const textAusgabe = document.querySelector('#textAusgabe');
-
-
-        // Daten
-        let zaehler = 0;
-
-        // Eigenschaften des Objekts ändern
-        berta.textContent = 'Berta heißt jetzt Bertram.';
-
-        // Eventhandler definieren
-        drueckbutten.addEventListener('click', function() {
-            //Hochzaehlen
-            zaehler = zaehler + 1;
-
-            //Eigenschaften den Objekts aendern
-            zahlenausgabe.textContent = zaehler;
-
-            console.log('Button wurde angeklickt.');
+        const app2 = new Vue({
+            el: '#app2',
+            data: {
+                eingabe: 'rein',
+                ausgabe: 'raus',
+            },
+            methods: {
+                kopieren: function() {
+                    this.ausgabe = this.eingabe;
+                }
+            }
         });
-
-        //resert button
-        reset.addEventListener('click', function() {
-            //Hochzaehlen
-            zaehler = 0;
-
-            //Eigenschaften den Objekts aendern
-            zahlenausgabe.textContent = zaehler;
-        });
-
-        //Ein-Ausgabe
-        kopierButton.addEventListener('click', function() {
-            //Text einlesen
-            const text = eingabe.value;
-
-            //Eigenschaften den Objekts aendern
-            textAusgabe.textContent = text;
-        });
-
-        // Konsolen ausgabe
-        console.log('Hallo');
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 </body>
 
