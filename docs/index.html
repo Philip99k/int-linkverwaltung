@@ -27,28 +27,38 @@
                         <a href="http://www.youtube.de" target="_blank">Youtube</a>
                     </li>
                     <li class="list-group-item">
-                        <a href=" {{ ausgabe }} " target="_blank">Irgendwas</a><br>
+                        <a href="{{ ausgabe }}" target="_blank">Irgendwas</a><br>
+                    </li>
+                    <li class="list-group-item">
+                        <a href='{{ ausgabe }}' target="_blank">{{ ausgabe }}</a><br>
                     </li>
                 </ul>
             </div>
 
             <div class="row d-flex p-3">
-                <h2>Link Eingabe: </h2>
-                </br>
-                <input v-model='eingabe' type="text">
-                <button @click='kopieren'>Kopieren</button>
-                <p>{{ ausgabe }}</p><br>
-                <p>{{ eingabe }}</p>
+                <ul class="list-group">
+                    <h2>Link Eingabe: </h2><br>
+                    <li class="list-group-item">
+                        <input v-model=' eingabe ' type="text">
+                        <button @click='kopieren '>Kopieren</button>
+                    </li>
+                    <li class="list-group-item">
+                        <p>{{ ausgabe }}</p><br>
+                    </li>
+                    <li class="list-group-item">
+                        <p>{{ eingabe }}</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         const app2 = new Vue({
-            el: '#app2',
+            el: '#app2 ',
             data: {
-                eingabe: 'rein',
-                ausgabe: 'raus',
+                eingabe: 'rein ',
+                ausgabe: 'raus ',
             },
             methods: {
                 kopieren: function() {
