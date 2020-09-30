@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Linkverwaltung
+    </title>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+
+<body>
+    <h1>Hallo hier sieht man alle Links:</h1>
+    <ul>
+        <li>
+            <a href="wwww.google.de">google</a>
+        </li>
+    </ul>
+
+    <br>
+    <h2>Neue Links hinzufügen</h2>
+    <input id="eingabe" type="text">
+    <button id="kopierButton">Kopieren</button>
+    <p id="textAusgabe">---</p>
+
+    <!-- Script am ende vom Body, damit der rest schon geladen ist. -->
+    <script>
+        // JavaScript-Objekt für HTML-Element
+        const berta = document.querySelector('#berta');
+        const drueckbutten = document.querySelector('#drueckbutten');
+        const zahlenausgabe = document.querySelector('#zahlenausgabe');
+        const reset = document.querySelector('#reset');
+
+        //Ein-Ausgabe
+        const eingabe = document.querySelector('#eingabe');
+        const kopierButton = document.querySelector('#kopierButton');
+        const textAusgabe = document.querySelector('#textAusgabe');
+
+
+        // Daten
+        let zaehler = 0;
+
+        // Eigenschaften des Objekts ändern
+        berta.textContent = 'Berta heißt jetzt Bertram.';
+
+        // Eventhandler definieren
+        drueckbutten.addEventListener('click', function() {
+            //Hochzaehlen
+            zaehler = zaehler + 1;
+
+            //Eigenschaften den Objekts aendern
+            zahlenausgabe.textContent = zaehler;
+
+            console.log('Button wurde angeklickt.');
+        });
+
+        //resert button
+        reset.addEventListener('click', function() {
+            //Hochzaehlen
+            zaehler = 0;
+
+            //Eigenschaften den Objekts aendern
+            zahlenausgabe.textContent = zaehler;
+        });
+
+        //Ein-Ausgabe
+        kopierButton.addEventListener('click', function() {
+            //Text einlesen
+            const text = eingabe.value;
+
+            //Eigenschaften den Objekts aendern
+            textAusgabe.textContent = text;
+        });
+
+        // Konsolen ausgabe
+        console.log('Hallo');
+    </script>
+
+</body>
+
+</html>
