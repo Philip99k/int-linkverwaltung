@@ -12,22 +12,16 @@
 <body>
     <div class="container">
 
-        <div id="app2">
+        <div id="app1">
 
             <div class="row d-flex p-3">
                 <ul class="list-group">
-                    <h1>Hallo hier sieht man alle Links:</h1><br>
-                    <li class="list-group-item">
-                        <a href="https://wwww.google.de" target="_blank">google</a>
-                    </li>
+                    <h1>Hallo hier sieht man die ersten Links:</h1><br>
                     <li class="list-group-item">
                         <a href="http://www.kohnlehome.de" target="_blank">kohnlehome</a>
                     </li>
-                    <li class="list-group-item">
-                        <a href="http://www.youtube.de" target="_blank">Youtube</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a :href="ausgabe" target="_blank">Irgendwas</a><br>
+                    <li class="list-group-item" v-for="link in links">
+                        <a :href="link.url" target="_blank">{{ link.linktext }}</a><br>
                     </li>
                     <li class="list-group-item">
                         <a :href="ausgabe" target="_blank">{{ ausgabe }}</a><br>
@@ -43,27 +37,57 @@
                         <button @click='kopieren '>Kopieren</button>
                     </li>
                     <li class="list-group-item">
-                        <p>{{ ausgabe }}</p><br>
-                    </li>
-                    <li class="list-group-item">
                         <p>{{ eingabe }}</p>
                     </li>
                 </ul>
             </div>
         </div>
+
+        <div id="app2">
+
+            <div class="row d-flex p-3">
+                <ul class="list-group">
+                    <h1>Hallo hier sieht man alle Links:</h1><br>
+                    <li class="list-group-item" v-for="link in links">
+                        <a :href="link.url" target="_blank">{{ link.linktext }}</a><br>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        const app2 = new Vue({
-            el: '#app2 ',
+        const app1 = new Vue({
+            el: '#app1 ',
             data: {
-                eingabe: 'rein ',
-                ausgabe: 'raus ',
+                eingabe: 'http://www.ihr-link.de',
+                ausgabe: 'ihr persöhnlicher Link ',
             },
             methods: {
                 kopieren: function() {
                     this.ausgabe = this.eingabe;
                 }
+            }
+        });
+
+        const app2 = new Vue({
+            el: '#app2 ',
+            data: {
+                links: [{
+                    linktext: 'kohnlehome.de',
+                    url: 'http://www.kohnlehome.de'
+                }, {
+                    linktext: 'München Coronazahlen',
+                    url: 'https://www.muenchen.de/rathaus/Stadtinfos/Coronavirus-Fallzahlen.html'
+                }, {
+                    linktext: 'Youtube',
+                    url: 'https://www.youtube.com/?gl=DE'
+                }, {
+                    linktext: 'Git-INT-Protokoll',
+                    url: 'https://github.com/gbs-technikum/i3a-int'
+                }]
             }
         });
     </script>
