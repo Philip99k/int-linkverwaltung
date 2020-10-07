@@ -60,7 +60,7 @@
 
 
         </div>
-        <footer class="alert alert-success">Diese links werden von Philip gesammelt</footer>
+        <footer class="alert alert-success">Diese links werden von Philip gesammelt.</footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -89,24 +89,37 @@
                     id: 1,
                     linktext: 'München Coronazahlen',
                     url: 'https://www.muenchen.de/rathaus/Stadtinfos/Coronavirus-Fallzahlen.html',
-                    votes: 71
+                    votes: 11
                 }, {
                     id: 2,
                     linktext: 'Youtube',
                     url: 'https://www.youtube.com/?gl=DE',
-                    votes: 17
+                    votes: 15
                 }, {
                     id: 3,
                     linktext: 'Git-INT-Protokoll',
                     url: 'https://github.com/gbs-technikum/i3a-int',
-                    votes: 171
+                    votes: 19
                 }]
             },
             methods: {
                 upvote: function(id) {
                     console.log('Button geklickt ' + id);
-                    this.links[id].votes++;
+                    // this.links[id].votes++; Funktioniert nicht mehr wenn umsotiert wurde
+                    clickedLink = this.links.find(link => link.id === id);
+                    clickedLink.votes++;
+                    this.sotieren();
+                },
+                sotieren: function() {
+                    this.links.sort(
+                        function(link1, link2) {
+                            return link2.votes - link1.votes;
+                        }
+                    );
                 }
+            },
+            mounted() {
+                this.sotieren();
             }
         });
     </script>
