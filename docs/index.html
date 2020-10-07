@@ -50,13 +50,17 @@
                     <h1>Hallo hier sieht man alle Links:</h1><br>
                     <li class="list-group-item d-flex justify-content-between" v-for="link in links">
                         <a :href="link.url" target="_blank">{{ link.linktext }}</a>
-                        <span class="badge badge-primary">{{ link.votes }}</span>
+                        <div>
+                            <span class="badge badge-primary">{{ link.votes }}</span>
+                            <span><button type="button" class="btn btn-primary btn-sm" @click="upvote(link.id)">+</button></span>
+                        </div>
                     </li>
                 </ul>
             </div>
 
 
         </div>
+        <footer class="alert alert-success">Diese links werden von Philip gesammelt</footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -77,22 +81,31 @@
             el: '#app2 ',
             data: {
                 links: [{
+                    id: 0,
                     linktext: 'kohnlehome.de',
                     url: 'http://www.kohnlehome.de',
                     votes: 7
                 }, {
+                    id: 1,
                     linktext: 'München Coronazahlen',
                     url: 'https://www.muenchen.de/rathaus/Stadtinfos/Coronavirus-Fallzahlen.html',
                     votes: 71
                 }, {
+                    id: 2,
                     linktext: 'Youtube',
                     url: 'https://www.youtube.com/?gl=DE',
                     votes: 17
                 }, {
+                    id: 3,
                     linktext: 'Git-INT-Protokoll',
                     url: 'https://github.com/gbs-technikum/i3a-int',
                     votes: 171
                 }]
+            },
+            methods: {
+                upvote: function(nummer) {
+                    console.log('Button geklickt ' + nummer);
+                }
             }
         });
     </script>
