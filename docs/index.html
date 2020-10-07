@@ -103,8 +103,9 @@
                 }]
             },
             methods: {
-                upvote: function(nummer) {
-                    console.log('Button geklickt ' + nummer);
+                upvote: function(id) {
+                    console.log('Button geklickt ' + id);
+                    this.links[id].votes++;
                 }
             }
         });
