@@ -12,7 +12,39 @@
 <body>
     <div class="container">
 
+        <div id="app1">
+
+            <div class="row d-flex p-3">
+                <ul class="list-group">
+                    <h1>Hallo hier sieht man die ersten Links:</h1><br>
+                    <li class="list-group-item">
+                        <a href="http://www.kohnlehome.de" target="_blank">kohnlehome</a>
+                    </li>
+                    <li class="list-group-item" v-for="link in links">
+                        <a :href="link.url" target="_blank">{{ link.linktext }}</a><br>
+                    </li>
+                    <li class="list-group-item">
+                        <a :href="ausgabe" target="_blank">{{ ausgabe }}</a><br>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row d-flex p-3">
+                <ul class="list-group">
+                    <h2>Link Eingabe: </h2><br>
+                    <li class="list-group-item">
+                        <input v-model=' eingabe ' type="text">
+                        <button @click='kopieren '>Kopieren</button>
+                    </li>
+                    <li class="list-group-item">
+                        <p>{{ eingabe }}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <div id="app2">
+
             <div class="row d-flex p-3">
                 <ul class="list-group">
                     <h1>Hallo hier sieht man alle Links:</h1><br>
@@ -25,21 +57,26 @@
                     </li>
                 </ul>
             </div>
-            <div class="row d-flex p-3">
-                <ul class="list-group">
-                    <h2>Neuer Eingabe: </h2><br>
-                    <li class="list-group-item">
-                        <input v-model=' name_hinz ' type="text">
-                        <input v-model=' url_hinz ' type="text">
-                        <button type="button" class="btn btn-primary btn-sm" @click='hinzufuegen '>Hinzufügen</button>
-                    </li>
-                </ul>
-            </div>
+
+
         </div>
         <footer class="alert alert-success">Diese links werden von Philip gesammelt.</footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+        const app1 = new Vue({
+            el: '#app1 ',
+            data: {
+                eingabe: 'http://www.ihr-link.de',
+                ausgabe: 'ihr persöhnlicher Link ',
+            },
+            methods: {
+                kopieren: function() {
+                    this.ausgabe = this.eingabe;
+                }
+            }
+        });
+
         const app2 = new Vue({
             el: '#app2 ',
             data: {
@@ -48,25 +85,24 @@
                     linktext: 'kohnlehome.de',
                     url: 'http://www.kohnlehome.de',
                     votes: 7
-                }],
-                nextId: 2,
-                name_hinz: '',
-                url_hinz: ''
+                }, {
+                    id: 1,
+                    linktext: 'München Coronazahlen',
+                    url: 'https://www.muenchen.de/rathaus/Stadtinfos/Coronavirus-Fallzahlen.html',
+                    votes: 11
+                }, {
+                    id: 2,
+                    linktext: 'Youtube',
+                    url: 'https://www.youtube.com/?gl=DE',
+                    votes: 15
+                }, {
+                    id: 3,
+                    linktext: 'Git-INT-Protokoll',
+                    url: 'https://github.com/gbs-technikum/i3a-int',
+                    votes: 19
+                }]
             },
             methods: {
-                hinzufuegen() {
-                    if (this.name_hinz != '' && this.url_hinz != '') {
-                        // console.log(this.name_hinz + ' ' + this.url_hinz)
-                        const newLink = {
-                            id: this.nextId,
-                            linktext: this.name_hinz,
-                            url: this.url_hinz,
-                            votes: 0
-                        }
-                        this.nextId = this.nextId + 1;
-                        this.links.push(newLink);
-                    }
-                },
                 upvote: function(id) {
                     console.log('Button geklickt ' + id);
                     // this.links[id].votes++; Funktioniert nicht mehr wenn umsotiert wurde
