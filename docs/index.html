@@ -6,86 +6,122 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Linkverwaltung</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <!-- <link rel='stylesheet' type='text/css' media='screen' href='style.css'> -->
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="container">
-
-        <div id="app2">
-            <div class="row d-flex p-3">
-                <ul class="list-group">
-                    <h1>Hallo hier sieht man alle Links:</h1><br>
-                    <li class="list-group-item d-flex justify-content-between" v-for="link in links">
-                        <a :href="link.url" target="_blank">{{ link.linktext }}</a>
-                        <div>
-                            <span class="badge badge-primary">{{ link.votes }}</span>
-                            <span><button type="button" class="btn btn-primary btn-sm" @click="upvote(link.id)">+</button></span>
-                        </div>
-                    </li>
-                </ul>
+        <div class="row">
+            <div class="col-lg-3" style="background-color:#D8D8D8;">
+                &nbsp;
             </div>
-            <div class="row d-flex p-3">
-                <ul class="list-group">
-                    <h2>Neuer Eingabe: </h2><br>
-                    <li class="list-group-item">
-                        <input v-model=' name_hinz ' type="text">
-                        <input v-model=' url_hinz ' type="text">
-                        <button type="button" class="btn btn-primary btn-sm" @click='hinzufuegen '>Hinzufügen</button>
-                    </li>
-                </ul>
+            <div class="col-lg-6">
+
+                <header>
+                    <h1 class="text-center">Linkverwaltung</h1>
+                </header>
+                <div id="linkverwaltung-app">
+                    <div class="row d-flex p-3">
+                        <ul class="list-group">
+                            <h2>Neuer Eingabe: </h2><br>
+                            <li class="list-group-item">
+                                <input class="mr-2" v-model='newName' type="text">
+                                <input class="mr-2" v-model='newUrl' type="text">
+                                <button type="button" class="btn btn-primary btn-sm" @click='hinzufuegen'>Hinzufügen</button>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row d-flex p-3">
+                        <ul class="list-group">
+                            <h1>Hallo hier sieht man alle Links:</h1><br>
+                            <li class="list-group-item d-flex justify-content-between mr-1" v-for="link in links">
+                                <a :href="link.url" target="_blank">{{ link.linktext }}</a>
+                                <div>
+                                    <span class="badge badge-primary justify-content-between mr-2">{{ link.votes }}</span>
+                                    <span>
+                                <button type="button" class="btn btn-primary btn-sm mr-2" @click="upvote(link.id)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                    </span>
+                                    <span>
+                                <button type="button" class="btn btn-danger btn-default btn-sm" @click="deleteLink(link.id)"><span class="glyphicon glyphicon-trash"></span></button>
+                                    </span>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <footer class="alert alert-success">Diese links werden von Philip gesammelt.</footer>
+            </div>
+            <div class="col-lg-3" style="background-color:#D8D8D8;">
+                &nbsp;&nbsp;
             </div>
         </div>
-        <footer class="alert alert-success">Diese links werden von Philip gesammelt.</footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="https://unpkg.com/vue@next"></script>
     <script>
-        const app2 = new Vue({
-            el: '#app2 ',
-            data: {
-                links: [{
-                    id: 0,
-                    linktext: 'kohnlehome.de',
-                    url: 'http://www.kohnlehome.de',
-                    votes: 7
-                }],
-                nextId: 2,
-                name_hinz: '',
-                url_hinz: ''
+        const LinkverwaltungApp = {
+            data() {
+                return {
+                    links: [{
+                        id: 0,
+                        linktext: 'kohnlehome.de',
+                        url: 'http://kohnlehome.de',
+                        votes: 1
+                    }, {
+                        id: 2,
+                        linktext: 'Tagesschau',
+                        url: 'https://tagesschau.de',
+                        votes: 4
+                    }],
+                    nextId: 4,
+                    newName: '',
+                    newUrl: ''
+                }
             },
             methods: {
-                hinzufuegen() {
-                    if (this.name_hinz != '' && this.url_hinz != '') {
-                        // console.log(this.name_hinz + ' ' + this.url_hinz)
-                        const newLink = {
-                            id: this.nextId,
-                            linktext: this.name_hinz,
-                            url: this.url_hinz,
-                            votes: 0
-                        }
-                        this.nextId = this.nextId + 1;
-                        this.links.push(newLink);
-                    }
-                },
-                upvote: function(id) {
-                    console.log('Button geklickt ' + id);
-                    // this.links[id].votes++; Funktioniert nicht mehr wenn umsotiert wurde
+                upvote(id) {
+                    //this.links[id].votes++; Funktioniert nicht, wenn umsortiert wurde
                     clickedLink = this.links.find(link => link.id === id);
                     clickedLink.votes++;
-                    this.sotieren();
+                    this.sortieren();
                 },
-                sotieren: function() {
+                deleteLink(id) {
+                    //this.links[id].votes++; Funktioniert nicht, wenn umsortiert wurde
+                    let index = this.links.findIndex(link => link.id === id);
+                    //Element an der Stelle index aus Array entfernen
+                    this.links.splice(index, 1);
+                },
+                sortieren() {
                     this.links.sort(
                         function(link1, link2) {
                             return link2.votes - link1.votes;
                         }
                     );
+                },
+                hinzufuegen() {
+                    if (this.newName != '' && this.newUrl != '') {
+                        const newLink = {
+                            id: this.nextId,
+                            linktext: this.newName,
+                            url: this.newUrl,
+                            votes: 0
+                        }
+                        this.nextId = this.nextId + 1;
+                        this.links.push(newLink);
+                    }
                 }
             },
             mounted() {
-                this.sotieren();
+                this.sortieren();
             }
-        });
+        };
+        Vue.createApp(LinkverwaltungApp).mount('#linkverwaltung-app');
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
