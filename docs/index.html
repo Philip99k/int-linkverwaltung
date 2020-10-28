@@ -4,6 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linkverwaltung</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
@@ -30,7 +31,7 @@
                             <li class="list-group-item">
                                 <input class="mr-2" v-model='newName' type="text">
                                 <input class="mr-2" v-model='newUrl' type="text">
-                                <button type="button" class="btn btn-primary btn-sm" @click='hinzufuegen'>Hinzufügen</button>
+                                <button type="button" class="btn btn-primary btn-sm" @click='hinzufuegen' aria-label="Hinzufügen">Hinzufügen</button>
 
                             </li>
                         </ul>
@@ -43,10 +44,10 @@
                                 <div>
                                     <span class="badge badge-primary justify-content-between mr-2">{{ link.votes }}</span>
                                     <span>
-                                <button type="button" class="btn btn-primary btn-sm mr-2" @click="upvote(link.id)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                <button type="button" class="btn btn-primary btn-sm mr-2" @click="upvote(link.id)" aria-label="like"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                     </span>
                                     <span>
-                                <button type="button" class="btn btn-danger btn-default btn-sm" @click="deleteLink(link.id)"><span class="glyphicon glyphicon-trash"></span></button>
+                                <button type="button" class="btn btn-danger btn-default btn-sm" @click="deleteLink(link.id)" aria-label="dislike"><span class="glyphicon glyphicon-trash"></span></button>
                                     </span>
 
                                 </div>
