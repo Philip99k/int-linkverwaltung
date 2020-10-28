@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Web Speicher</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <h1>LocalStorage-Test</h1>
+
+    <script>
+        // Schreiben in localStorage
+        // localStorage.setItem('vorname', 'Anna')
+        // localStorage.setItem('nachname', 'Arm')
+        const liste = [{
+            vorname: "Anna",
+            nachname: "Arm"
+        }, {
+            vorname: "Berta",
+            nachname: "Bein"
+        }, {
+            vorname: "Carla",
+            nachname: "Copf"
+        }, ];
+        const jsonString = JSON.stringify(liste);
+        localStorage.setItem('liste', jsonString);
+
+
+        //Lesen von localStorage 
+        // const vorname = localStorage.getItem('vorname')
+        // const nachname = localStorage.getItem('nachname')
+        // alert('Hallo ' + vorname + ' ' + nachname + '!');
+        const listentext = localStorage.getItem('liste');
+        const list = JSON.parse(listentext);
+        alert(list[1].vorname);
+    </script>
+</body>
+
+</html>

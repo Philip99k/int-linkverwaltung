@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
 </head>
 
 <body>
@@ -92,12 +92,14 @@
                     clickedLink = this.links.find(link => link.id === id);
                     clickedLink.votes++;
                     this.sortieren();
+                    this.speichern();
                 },
                 deleteLink(id) {
                     //this.links[id].votes++; Funktioniert nicht, wenn umsortiert wurde
                     let index = this.links.findIndex(link => link.id === id);
                     //Element an der Stelle index aus Array entfernen
                     this.links.splice(index, 1);
+                    this.speichern();
                 },
                 sortieren() {
                     this.links.sort(
@@ -105,6 +107,31 @@
                             return link2.votes - link1.votes;
                         }
                     );
+                },
+                laden() {
+                    if (localStorage.getItem('links')) {
+                        const linksString = localStorage.getItem('links');
+                        this.links = JSON.parse(linksString);
+                    } else {
+                        this.links = [{
+                            id: 0,
+                            linktext: 'kohnlehome.de',
+                            url: 'http://kohnlehome.de',
+                            votes: 1
+                        }, {
+                            id: 2,
+                            linktext: 'Tagesschau',
+                            url: 'https://tagesschau.de',
+                            votes: 4
+                        }];
+                    }
+
+
+                },
+                speichern() {
+                    const linksString = JSON.stringify(this.links);
+                    localStorage.setItem('links', linksString);
+
                 },
                 hinzufuegen() {
                     if (this.newName != '' && this.newUrl != '') {
@@ -116,19 +143,22 @@
                         }
                         this.nextId = this.nextId + 1;
                         this.links.push(newLink);
+                        this.speicher();
+                        this.speichern();
                     }
                 }
             },
             mounted() {
+                this.laden();
                 this.sortieren();
             }
         };
         Vue.createApp(LinkverwaltungApp).mount('#linkverwaltung-app');
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
 
 </body>
 
